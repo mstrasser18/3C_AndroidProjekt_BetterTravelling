@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("TestCommit");
         //Versuch1
         // Versuch 2
+        System.out.println("Test");
         //Versuch3
         //V4
     }
