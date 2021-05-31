@@ -13,10 +13,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("TestCommit");
         //Versuch1
         // Versuch 2
-<<<<<<< HEAD
         System.out.println("Test");
-=======
         //Versuch3
->>>>>>> a025eaea643258ee030e57d2dc1c5b74c67e3146
     }
 }
