@@ -16,6 +16,10 @@
             android:id="@+id/addCity"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginStart="10sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginEnd="10sp"
+            android:layout_marginRight="10sp"
             android:layout_weight="1"
             android:text="Stadt auswählen" />
     </LinearLayout>
@@ -30,13 +34,19 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="5sp"
             android:layout_weight="0"
-            android:text="Liste der Städte" />
+            android:text="Liste der Städte"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <ListView
             android:id="@+id/listOfCities"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
             android:layout_weight="1" />
     </LinearLayout>
 

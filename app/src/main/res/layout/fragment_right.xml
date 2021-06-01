@@ -11,36 +11,69 @@
         android:id="@+id/info_sight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Informationen zu " />
+        android:layout_marginStart="15sp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="15sp"
+        android:layout_marginEnd="15sp"
+        android:layout_marginRight="15sp"
+        android:text="Informationen zu "
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/address_sight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Adresse Todo" />
+        android:layout_marginStart="15sp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="5sp"
+        android:layout_marginEnd="15sp"
+        android:layout_marginRight="15sp"
+        android:text="Adresse Todo"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/latlon_sight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Koordinaten Todo" />
+        android:layout_marginStart="15sp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="5sp"
+        android:layout_marginEnd="15sp"
+        android:layout_marginRight="15sp"
+        android:text="Koordinaten Todo"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/txtview_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Todo" />
+        android:layout_marginStart="15sp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="5sp"
+        android:layout_marginEnd="15sp"
+        android:layout_marginRight="15sp"
+        android:text="Todo"
+        android:textSize="16sp" />
 
     <ImageView
         android:id="@+id/image_sight"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="303dp"
+        android:layout_marginTop="5sp"
+        android:layout_marginBottom="5sp"
         tools:src="@tools:sample/avatars" />
 
     <Button
         android:id="@+id/find_hotels"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15sp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="5sp"
+        android:layout_marginEnd="15sp"
+        android:layout_marginRight="15sp"
+        android:layout_marginBottom="5sp"
         android:text="Hotels in der Nähe anzeigen"
         android:textAllCaps="false" />
 
@@ -48,6 +81,11 @@
         android:id="@+id/get_route"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15sp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginEnd="15sp"
+        android:layout_marginRight="15sp"
+        android:layout_marginBottom="5sp"
         android:text="Route berechnen"
         android:textAllCaps="false" />
 
@@ -55,6 +93,11 @@
         android:id="@+id/show_on_map"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15sp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginEnd="15sp"
+        android:layout_marginRight="15sp"
+        android:layout_marginBottom="10sp"
         android:text="Auf Karte anzeigen"
         android:textAllCaps="false" />
 </LinearLayout>
