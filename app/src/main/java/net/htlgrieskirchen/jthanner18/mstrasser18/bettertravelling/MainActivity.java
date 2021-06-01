@@ -1,17 +1,16 @@
 package net.htlgrieskirchen.jthanner18.mstrasser18.bettertravelling;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.PreferenceManager;
 
 import android.content.Intent;
-<<<<<<< HEAD
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ListView;
-
-public class MainActivity extends AppCompatActivity  implements  LeftFragment.OnSelectionChangedListener{
-=======
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -22,12 +21,14 @@ import java.util.Map;
 import android.widget.Button;
 import android.widget.ListView;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Map;
+
+public class MainActivity extends AppCompatActivity implements LeftFragment.OnSelectionChangedListener {
+
     private static final int RQ_PREFERENCES = 1;
     private SharedPreferences prefs;
     private SharedPreferences.OnSharedPreferenceChangeListener preferencesChangeListener;
     private boolean getNotifications;
->>>>>>> 0bc748bf282425f764e5e5c3c849f36c894870ff
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private RightFragment rightFragment;
@@ -37,8 +38,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-<<<<<<< HEAD
         initializeView();
+
+        //Preferences
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        preferencesChangeListener = ( sharedPrefs, key ) -> preferenceChanged(sharedPrefs, key);
+        getNotifications = true;
+        //Delte List Preference-Button
+        /**
+         Preference button = findPreference("preference_delete_lists");
+         button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        @Override
+        public boolean onPreferenceClick(Preference preference) {
+        //TODO
+        //Listen löschen
+        return true;
+        }
+        });
+         **/
     }
 
     private void initializeView() {
@@ -59,25 +76,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("pos", pos);
         intent.putExtra("item", item);
         startActivity(intent);
-=======
-
-        //Preferences
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        preferencesChangeListener = ( sharedPrefs, key ) -> preferenceChanged(sharedPrefs, key);
-        getNotifications = true;
-        //Delte List Preference-Button
-        /**
-        Preference button = findPreference("preference_delete_lists");
-        button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                //TODO
-                //Listen löschen
-                return true;
-            }
-        });
-         **/
-
     }
 
     @Override
@@ -109,8 +107,5 @@ public class MainActivity extends AppCompatActivity {
             //TODO
             //startNotificationService();
         }
-        addCity = findViewById(R.id.addCity);
-        listofCities = findViewById(R.id.listOfCities);
->>>>>>> 0bc748bf282425f764e5e5c3c849f36c894870ff
     }
 }
