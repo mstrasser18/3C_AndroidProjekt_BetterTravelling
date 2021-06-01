@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="preference_get_notifications"
+        android:title="Benachrichtigungen erhalten" />
+
+    <Preference
+        android:id="@+id/preference_delte_list_button"
+        android:key="preference_delete_lists"
+        android:summary="Alle Listen löschen"
+        android:title="Zurücksetzen" />
+</PreferenceScreen>
