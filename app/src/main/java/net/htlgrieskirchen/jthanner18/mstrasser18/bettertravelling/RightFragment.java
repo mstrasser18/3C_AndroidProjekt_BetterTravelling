@@ -36,4 +36,10 @@ public class RightFragment extends Fragment {
         super.onStart();
         Log.d(TAG, "onStart: entered");
     }
+
+    public void show(int pos, String item) {
+        Log.d(TAG, "show: entered");
+        txt1.setText(""+pos);
+        txt2.setText(item);
+    }
 }

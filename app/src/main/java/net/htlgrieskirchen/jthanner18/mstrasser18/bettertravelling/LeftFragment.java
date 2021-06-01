@@ -1,5 +1,6 @@
 package net.htlgrieskirchen.jthanner18.mstrasser18.bettertravelling;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,12 +11,25 @@ import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.datepicker.OnSelectionChangedListener;
+
 import java.util.ArrayList;
 
 public class LeftFragment extends Fragment {
     private static final String TAG = LeftFragment.class.getSimpleName();
     private ListView list;
     private ArrayList<String> items = new ArrayList<>();
+
+    @Override
+    public void onAttach(Context context) {
+        Log.d(TAG, "onAttach: entered");
+        super.onAttach(context);
+        if (context instanceof OnSelectionChangedListener) {
+            listener = (OnSelectionChangedListener) context;
+        } else {
+            Log.d(TAG, "onAttach: Activity does not implement OnSelectionChangedListener");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,11 +43,17 @@ public class LeftFragment extends Fragment {
 
     private void initializeViews(View view) {
         Log.d(TAG, "initializeViews: entered");
-        list = view.findViewById(R.id.listview);
+        list = view.findViewById(R.id.listOfCities);
         items.add("Max");
         items.add("Anselm");
         items.add("Maria");
         items.add("Sandra");
+        list.setOnItemClickListener((parent, view1, position, id) -> itemSelected(position));
+    }
+
+    private void itemSelected(int position) {
+        String item = items.get(position);
+        listener.onSelectionChanged(position, item);
     }
 
     @Override
@@ -48,4 +68,10 @@ public class LeftFragment extends Fragment {
                 );
         list.setAdapter(adapter);
     }
+
+    public interface OnSelectionChangedListener {
+        void onSelectionChanged( int pos, String item);
+    }
+
+    private OnSelectionChangedListener listener;
 }
