@@ -12,8 +12,10 @@ import android.widget.TextView;
 
 public class RightFragment extends Fragment {
     public final static String TAG = RightFragment.class.getSimpleName();
-    private TextView txt1;
-    private TextView txt2;
+    private TextView info;
+    private TextView address;
+    private TextView coord;
+    private TextView todo_Field;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,10 +28,14 @@ public class RightFragment extends Fragment {
     }
     private void intializeViews(View view) {
         Log.d(TAG, "intializeViews: entered");
-        txt1 = view.findViewById(R.id.txtview_1);
-        txt2 = view.findViewById(R.id.txtview_2);
-        txt1.setText("Erste Zeile....");
-        txt2.setText("Zweite Zeile....");
+        info = view.findViewById(R.id.info_sight);
+        address = view.findViewById(R.id.address_sight);
+        coord = view.findViewById(R.id.latlon_sight);
+        todo_Field = view.findViewById(R.id.txtview_3);
+        info.setText("Erste Zeile....");
+        address.setText("Zweite Zeile....");
+        coord.setText("Dritte Zeile....");
+        todo_Field.setText("Vierte Zeile....");
     }
     @Override
     public void onStart() {
@@ -39,7 +45,9 @@ public class RightFragment extends Fragment {
 
     public void show(int pos, String item) {
         Log.d(TAG, "show: entered");
-        txt1.setText(""+pos);
-        txt2.setText(item);
+        info.setText(""+pos);
+        address.setText(item);
+        coord.setText(item);
+        todo_Field.setText(item);
     }
 }

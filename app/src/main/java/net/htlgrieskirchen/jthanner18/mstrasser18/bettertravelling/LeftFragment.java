@@ -44,10 +44,7 @@ public class LeftFragment extends Fragment {
     private void initializeViews(View view) {
         Log.d(TAG, "initializeViews: entered");
         list = view.findViewById(R.id.listOfCities);
-        items.add("Max");
-        items.add("Anselm");
-        items.add("Maria");
-        items.add("Sandra");
+        items.add("Todo");
         list.setOnItemClickListener((parent, view1, position, id) -> itemSelected(position));
     }
 

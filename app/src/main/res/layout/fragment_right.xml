@@ -1,18 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".RightFragment">
+
     <TextView
-        android:id="@+id/txtview_1"
+        android:id="@+id/info_sight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment" />
+        android:text="Informationen zu " />
+
     <TextView
-        android:id="@+id/txtview_2"
+        android:id="@+id/address_sight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment" />
+        android:text="Adresse Todo" />
+
+    <TextView
+        android:id="@+id/latlon_sight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Koordinaten Todo" />
+
+    <TextView
+        android:id="@+id/txtview_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Todo" />
+
+    <ImageView
+        android:id="@+id/image_sight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:src="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/find_hotels"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hotels in der Nähe anzeigen"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/get_route"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Route berechnen"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/show_on_map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Auf Karte anzeigen"
+        android:textAllCaps="false" />
 </LinearLayout>
