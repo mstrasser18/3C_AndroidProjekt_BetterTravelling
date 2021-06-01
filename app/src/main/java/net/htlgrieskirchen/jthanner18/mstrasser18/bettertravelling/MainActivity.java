@@ -44,18 +44,6 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         preferencesChangeListener = ( sharedPrefs, key ) -> preferenceChanged(sharedPrefs, key);
         getNotifications = true;
-        //Delte List Preference-Button
-        /**
-         Preference button = findPreference("preference_delete_lists");
-         button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-        @Override
-        public boolean onPreferenceClick(Preference preference) {
-        //TODO
-        //Listen löschen
-        return true;
-        }
-        });
-         **/
     }
 
     private void initializeView() {
