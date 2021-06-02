@@ -1,7 +1,10 @@
 package net.htlgrieskirchen.jthanner18.mstrasser18.bettertravelling;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,7 +12,10 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,11 +23,16 @@ import android.preference.Preference;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import android.widget.Button;
 import android.widget.ListView;
 
+import org.json.JSONObject;
+
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity implements LeftFragment.OnSelectionChangedListener {
 
@@ -33,12 +44,19 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
     private static final String TAG = MainActivity.class.getSimpleName();
     private RightFragment rightFragment;
     private boolean showRight = false;
+    private Map<String, ArrayList<Sight>> sights = new HashMap<>();
+    // private String currentCity;
+    private ArrayList<String> items;
+    private static MainActivity instance;
+    // LeftFragment lf = LeftFragment.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initializeView();
+
+        instance = this;
 
         //Preferences
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -58,12 +76,16 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
         else callRightActivity(pos, item);
     }
 
-    private void callRightActivity(int pos, String item) {
+    public void callRightActivity(int pos, String item) {
         Log.d(TAG, "callRightActivity: entered");
         Intent intent = new Intent(this, RightActivity.class);
         intent.putExtra("pos", pos);
         intent.putExtra("item", item);
         startActivity(intent);
+    }
+
+    public void setData(ArrayList<String> items) {
+        this.items = items;
     }
 
     @Override
@@ -94,6 +116,38 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
         }else if(!prevNotificationPreference && getNotifications){
             //TODO
             //startNotificationService();
+        }
+    }
+
+    public static MainActivity getInstance() {
+        return instance;
+    }
+
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
+        if (items != null) {
+            savedInstanceState.putSerializable("items", items);
+        }
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null) {
+            items = (ArrayList<String>) savedInstanceState.getSerializable("items");
+            if (items != null) {
+                if (showRight) {
+                    for (int i = 0; i < items.size(); i++) {
+                        rightFragment.show(i, items.get(i));
+                    }
+                } else {
+                    for (int i = 0; i < items.size(); i++) {
+                        callRightActivity(i, items.get(i));
+                    }
+                }
+            }
         }
     }
 }

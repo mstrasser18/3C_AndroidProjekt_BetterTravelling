@@ -38,7 +38,7 @@
             android:layout_marginLeft="10sp"
             android:layout_marginTop="5sp"
             android:layout_weight="0"
-            android:text="Liste der Städte"
+            android:text="Liste für [Stadt]"
             android:textSize="22sp"
             android:textStyle="bold" />
 
