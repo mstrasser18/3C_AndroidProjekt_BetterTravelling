@@ -8,11 +8,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -20,6 +22,8 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.datepicker.OnSelectionChangedListener;
 
+import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,8 +32,11 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
     private static final String TAG = LeftFragment.class.getSimpleName();
     private ListView list;
     private ArrayList<String> items = new ArrayList<>();
+    static ArrayList<String> spinnerItems = new ArrayList<>();
     private ArrayAdapter<String> adapter;
+    static ArrayAdapter<String> spinnerAdapter;
     private Button addCity;
+    private Spinner dropdown;
     private Map<String, ArrayList<Sight>> sights = new HashMap<>();
     private String current_city = "";
     MainActivity ma = MainActivity.getInstance();
@@ -56,6 +63,21 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
         initializeViews(view);
         addCity = view.findViewById(R.id.addCity);
         addCity.setOnClickListener(this::onClick);
+        dropdown = view.findViewById(R.id.spinnerLists);
+        spinnerAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, spinnerItems);
+        dropdown.setAdapter(spinnerAdapter);
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                current_city = spinnerItems.get(position);
+                refreshAdapter(sights);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         return view;
     }
 
@@ -111,6 +133,17 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
                 ArrayList<Sight> s = new ArrayList<>();
                 s.add(new Sight("Freiheitsstatue"));
                 sights.put(current_city, s);
+                boolean exists = false;
+                for (int i = 0; i < spinnerItems.size(); i++) {
+                    if (spinnerItems.get(i).equals(current_city)) {
+                        exists = true;
+                    }
+                }
+                if (!exists) {
+                    spinnerItems.add(current_city);
+                    spinnerAdapter.notifyDataSetChanged();
+                }
+                dropdown.setSelection(spinnerItems.indexOf(current_city));
                 refreshAdapter(sights);
             }
         };
@@ -167,8 +200,10 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
-        if (items != null) {
+        if (items != null && spinnerItems != null) {
             savedInstanceState.putSerializable("items", items);
+            savedInstanceState.putSerializable("spinneritems", spinnerItems);
+            savedInstanceState.putSerializable("map", (Serializable) sights);
         }
         super.onSaveInstanceState(savedInstanceState);
     }
@@ -178,25 +213,12 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
         super.onViewStateRestored(savedInstanceState);
         if (savedInstanceState != null) {
             items = (ArrayList<String>) savedInstanceState.getSerializable("items");
-            if (items != null) {
-                ma.setData(items);
+            spinnerItems = (ArrayList<String>) savedInstanceState.getSerializable("spinneritems");
+            sights = (Map<String, ArrayList<Sight>>) savedInstanceState.getSerializable("map");
+
+            if (items != null && spinnerItems != null && sights != null) {
+                ma.setData(items, spinnerItems, sights);
             }
         }
-        /*
-        if (savedInstanceState != null) {
-            items = (ArrayList<String>) savedInstanceState.getSerializable("items");
-            if (items != null) {
-                if (ma.showRight) {
-                    for (int i = 0; i < items.size(); i++) {
-                        ma.rightFragment.show(i,items.get(i));
-                    }
-                } else {
-                    for (int i = 0; i < items.size(); i++) {
-                        ma.callRightActivity(i,items.get(i));
-                    }
-                }
-            }
-        }
-        */
     }
 }

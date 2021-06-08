@@ -1,6 +1,8 @@
 package net.htlgrieskirchen.jthanner18.mstrasser18.bettertravelling;
 
-public class Sight {
+import java.io.Serializable;
+
+public class Sight implements Serializable {
     private String name;
 
     public Sight (String name) {

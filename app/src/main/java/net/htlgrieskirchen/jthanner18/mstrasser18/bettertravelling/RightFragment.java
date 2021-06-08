@@ -32,10 +32,12 @@ public class RightFragment extends Fragment {
         address = view.findViewById(R.id.address_sight);
         coord = view.findViewById(R.id.latlon_sight);
         todo_Field = view.findViewById(R.id.txtview_3);
+        /*
         info.setText("Erste Zeile....");
         address.setText("Zweite Zeile....");
         coord.setText("Dritte Zeile....");
         todo_Field.setText("Vierte Zeile....");
+         */
     }
     @Override
     public void onStart() {

@@ -31,7 +31,8 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <TextView
+        <Spinner
+            android:id="@+id/spinnerLists"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10sp"
@@ -40,7 +41,9 @@
             android:layout_weight="0"
             android:text="Liste für [Stadt]"
             android:textSize="22sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"/>
 
         <ListView
             android:id="@+id/listOfCities"

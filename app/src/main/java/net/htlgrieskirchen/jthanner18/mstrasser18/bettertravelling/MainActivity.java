@@ -23,6 +23,8 @@ import android.preference.Preference;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
     private Map<String, ArrayList<Sight>> sights = new HashMap<>();
     // private String currentCity;
     private ArrayList<String> items;
+    private ArrayList<String> spinnerItems;
     private static MainActivity instance;
     // LeftFragment lf = LeftFragment.getInstance();
 
@@ -84,8 +87,10 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
         startActivity(intent);
     }
 
-    public void setData(ArrayList<String> items) {
+    public void setData(ArrayList<String> items, ArrayList<String> spinnerItems, Map<String, ArrayList<Sight>> sights) {
         this.items = items;
+        this.spinnerItems = spinnerItems;
+        this.sights = sights;
     }
 
     @Override
@@ -126,8 +131,10 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
-        if (items != null) {
+        if (items != null && spinnerItems != null) {
             savedInstanceState.putSerializable("items", items);
+            savedInstanceState.putSerializable("spinneritems", spinnerItems);
+            savedInstanceState.putSerializable("map", (Serializable) sights);
         }
         super.onSaveInstanceState(savedInstanceState);
     }
@@ -137,7 +144,10 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
         super.onRestoreInstanceState(savedInstanceState);
         if (savedInstanceState != null) {
             items = (ArrayList<String>) savedInstanceState.getSerializable("items");
-            if (items != null) {
+            spinnerItems = (ArrayList<String>) savedInstanceState.getSerializable("spinneritems");
+            sights = (Map<String, ArrayList<Sight>>) savedInstanceState.getSerializable("map");
+
+            if (items != null && spinnerItems != null && sights != null) {
                 if (showRight) {
                     for (int i = 0; i < items.size(); i++) {
                         rightFragment.show(i, items.get(i));
