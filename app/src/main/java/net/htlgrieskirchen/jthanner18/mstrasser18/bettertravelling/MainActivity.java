@@ -3,10 +3,20 @@ package net.htlgrieskirchen.jthanner18.mstrasser18.bettertravelling;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationChannelCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -41,12 +51,21 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
     private static final int RQ_PREFERENCES = 1;
     private SharedPreferences prefs;
     private SharedPreferences.OnSharedPreferenceChangeListener preferencesChangeListener;
-    private boolean getNotifications;
+
+    //Notifications
+    static NotificationManagerCompat notificationManagerCompat;
+    public static boolean getNotifications = false;
+    public static final int CHANNEL_ID = 120;
+
+    //GPS
+    public static LocationManager lm;
+    public static LocationListener ll;
+    public static boolean isGpsGranted;
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private RightFragment rightFragment;
     private boolean showRight = false;
-    private Map<String, ArrayList<Sight>> sights = new HashMap<>();
+    static Map<String, ArrayList<Sight>> sights = new HashMap<>();
     // private String currentCity;
     private ArrayList<String> items;
     private ArrayList<String> spinnerItems;
@@ -65,6 +84,23 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         preferencesChangeListener = ( sharedPrefs, key ) -> preferenceChanged(sharedPrefs, key);
         getNotifications = true;
+
+        //GPS
+        isGpsGranted = false;
+        lm = (LocationManager) getSystemService(LOCATION_SERVICE);
+        checkPermissionGPS();
+
+        //Notificaions
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = new NotificationChannel(String.valueOf(CHANNEL_ID), "channel", importance);
+
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
+
+        notificationManagerCompat = NotificationManagerCompat.from(this);
+        if(getNotifications){
+            startNotificationService();
+        }
     }
 
     private void initializeView() {
@@ -116,11 +152,9 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
             getNotifications = sharedPrefs.getBoolean("preference_get_notifications", true);
         }
         if(prevNotificationPreference && !getNotifications){
-            //TODO
-            //stopNotificationService();
+            stopNotificationService();
         }else if(!prevNotificationPreference && getNotifications){
-            //TODO
-            //startNotificationService();
+            startNotificationService();
         }
     }
 
@@ -159,5 +193,51 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
                 }
             }
         }
+    }
+
+    //Notifications
+    public void startNotificationService() {
+        Intent intent = new Intent(this, NotificationService.class);
+        startService(intent);
+    }
+
+    public void stopNotificationService() {
+        Intent intent = new Intent(this, NotificationService.class);
+        stopService(intent);
+    }
+
+    //GPS
+    private void checkPermissionGPS() {
+        String permission = Manifest.permission.ACCESS_FINE_LOCATION;
+        if (ActivityCompat.checkSelfPermission(this, permission)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{permission}, 321);
+        } else {
+            gpsGranted();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode != 321) return;
+        if (grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+            new AlertDialog.Builder(this)
+                    .setTitle("GPS verweigert")
+                    .setMessage("Sie werden nicht über nahe Sehenswürdigkeiten benachrichtigt.")
+                    .setNeutralButton("Ok", null)
+                    .show();
+        } else {
+            gpsGranted();
+        }
+    }
+
+    private void gpsGranted(){
+        isGpsGranted = true;
+        LocationListener ll = new LocationListener() {
+            @Override
+            public void onLocationChanged(@NonNull Location location) {
+            }
+        };
     }
 }
