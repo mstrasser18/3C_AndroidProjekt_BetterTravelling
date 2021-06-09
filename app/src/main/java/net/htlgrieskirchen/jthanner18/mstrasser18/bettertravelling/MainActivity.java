@@ -95,16 +95,16 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
         checkPermissionGPS();
 
         //Notificaions
-        int importance = NotificationManager.IMPORTANCE_DEFAULT;
-        NotificationChannel channel = new NotificationChannel(String.valueOf(CHANNEL_ID), "channel", importance);
+        //int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        //NotificationChannel channel = new NotificationChannel(String.valueOf(CHANNEL_ID), "channel", importance);
 
-        NotificationManager notificationManager = getSystemService(NotificationManager.class);
-        notificationManager.createNotificationChannel(channel);
+        //NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        //notificationManager.createNotificationChannel(channel);
 
-        notificationManagerCompat = NotificationManagerCompat.from(this);
-        if(getNotifications){
-            startNotificationService();
-        }
+        //notificationManagerCompat = NotificationManagerCompat.from(this);
+        //if(getNotifications){
+        //    startNotificationService();
+        //}
     }
 
     private void initializeView() {

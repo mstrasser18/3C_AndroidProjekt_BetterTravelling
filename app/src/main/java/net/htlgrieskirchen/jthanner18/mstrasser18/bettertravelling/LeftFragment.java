@@ -191,6 +191,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
             }
         }
         adapter.notifyDataSetChanged();
+        ma.setData(items, spinnerItems, sights);
     }
 
     public static LeftFragment getInstance() {
