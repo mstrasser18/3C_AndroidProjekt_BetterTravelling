@@ -5,10 +5,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:allowBackup="true"
+        android:label="Better Travelling"
         android:supportsRtl="true"
         android:theme="@style/Theme.BetterTravelling">
         <service android:name=".NotificationService"/>
@@ -24,5 +24,6 @@
             android:name=".SettingsActivity"
             android:label="Einstellungen"/>
     </application>
+    <!--android:icon="@mipmap/ic_launcher"-->
 
 </manifest>

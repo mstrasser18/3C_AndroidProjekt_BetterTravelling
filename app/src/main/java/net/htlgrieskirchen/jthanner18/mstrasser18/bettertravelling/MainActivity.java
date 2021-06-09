@@ -1,18 +1,22 @@
 package net.htlgrieskirchen.jthanner18.mstrasser18.bettertravelling;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationChannelCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationChannelCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import android.app.NotificationChannel;
 import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -165,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
-        if (items != null && spinnerItems != null) {
+        if (items != null && spinnerItems != null && sights != null) {
             savedInstanceState.putSerializable("items", items);
             savedInstanceState.putSerializable("spinneritems", spinnerItems);
             savedInstanceState.putSerializable("map", (Serializable) sights);

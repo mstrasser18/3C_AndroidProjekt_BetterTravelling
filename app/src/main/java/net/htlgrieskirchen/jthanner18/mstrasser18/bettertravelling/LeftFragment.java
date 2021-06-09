@@ -200,7 +200,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
-        if (items != null && spinnerItems != null) {
+        if (items != null && spinnerItems != null && sights != null) {
             savedInstanceState.putSerializable("items", items);
             savedInstanceState.putSerializable("spinneritems", spinnerItems);
             savedInstanceState.putSerializable("map", (Serializable) sights);
