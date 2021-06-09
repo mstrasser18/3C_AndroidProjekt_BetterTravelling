@@ -9,3 +9,15 @@ Die Preference "Alle Listen löschen", welche auf Knopfdruck einen Code ausführ
 Die Gruppe liegt gut im Zeitplan.
 #### Was wird nächste Woche umgesetzt?
 Placefinder-API, Google Maps Weiterleitung
+
+# Woche 02.06 - 09.06
+#### Was ist gut gelaufen?
+Notifications
+#### Welche AP's wurden erledigt?
+Placefinder-API, Service und Notifications erstellen
+#### Welche Probleme sind aufgetreten?
+Es sind soweit keine Probleme aufgetreten.
+#### Wie liegt die Gruppe im Zeitplan?
+Die Fertigstellung der Einbindung der Placefinder-API verzögert sich
+#### Was wird nächste Woche umgesetzt?
+Google Maps Weiterleitung, Routenplaner, Hotelfinder-API, Hotelbildschirm
