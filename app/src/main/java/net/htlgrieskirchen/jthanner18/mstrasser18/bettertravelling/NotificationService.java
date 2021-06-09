@@ -2,8 +2,10 @@ package net.htlgrieskirchen.jthanner18.mstrasser18.bettertravelling;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
+import android.util.Size;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -18,6 +20,8 @@ public class NotificationService extends IntentService {
     double latitude = 0.0;
 
     int notificationId = 1;
+
+    boolean b = true;
 
 
     public NotificationService() {
@@ -49,11 +53,12 @@ public class NotificationService extends IntentService {
         for (Map.Entry<String, ArrayList<Sight>> entry : MainActivity.sights.entrySet()) {
             ArrayList<Sight> arr = entry.getValue();
             for(Sight s: arr){
-                if(isNear(s)){
+                if(isNear(s) && !s.getUserNotified()){
                     out.add(s);
                     s.setUserNotified();
                 }
             }
+            MainActivity.sights.put(entry.getKey(), arr);
         }
 
         return out;
@@ -66,7 +71,8 @@ public class NotificationService extends IntentService {
 
         for(Sight s: e) {
             builder = new NotificationCompat.Builder(this, String.valueOf(MainActivity.CHANNEL_ID))
-                    .setSmallIcon(android.R.drawable.star_big_on)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setLargeIcon(BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher))
                     .setContentTitle("Nahe Sehenswürdigkeit")
                     .setContentText(s.toString())
                     .setWhen(System.currentTimeMillis())

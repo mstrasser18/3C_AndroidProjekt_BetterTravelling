@@ -71,8 +71,8 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
     private boolean showRight = false;
     static Map<String, ArrayList<Sight>> sights = new HashMap<>();
     // private String currentCity;
-    private ArrayList<String> items;
-    private ArrayList<String> spinnerItems;
+    static ArrayList<String> items;
+    static ArrayList<String> spinnerItems;
     private static MainActivity instance;
     // LeftFragment lf = LeftFragment.getInstance();
 
@@ -95,16 +95,16 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
         checkPermissionGPS();
 
         //Notificaions
-        //int importance = NotificationManager.IMPORTANCE_DEFAULT;
-        //NotificationChannel channel = new NotificationChannel(String.valueOf(CHANNEL_ID), "channel", importance);
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = new NotificationChannel(String.valueOf(CHANNEL_ID), "channel", importance);
 
-        //NotificationManager notificationManager = getSystemService(NotificationManager.class);
-        //notificationManager.createNotificationChannel(channel);
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
 
-        //notificationManagerCompat = NotificationManagerCompat.from(this);
-        //if(getNotifications){
-        //    startNotificationService();
-        //}
+        notificationManagerCompat = NotificationManagerCompat.from(this);
+        if(getNotifications){
+            startNotificationService();
+        }
     }
 
     private void initializeView() {
@@ -127,10 +127,10 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
         startActivity(intent);
     }
 
-    public void setData(ArrayList<String> items, ArrayList<String> spinnerItems, Map<String, ArrayList<Sight>> sights) {
-        this.items = items;
-        this.spinnerItems = spinnerItems;
-        this.sights = sights;
+    public static void setData(ArrayList<String> items1, ArrayList<String> spinnerItems1, Map<String, ArrayList<Sight>> sights1) {
+        items = items1;
+        spinnerItems = spinnerItems1;
+        sights = sights1;
     }
 
     @Override
