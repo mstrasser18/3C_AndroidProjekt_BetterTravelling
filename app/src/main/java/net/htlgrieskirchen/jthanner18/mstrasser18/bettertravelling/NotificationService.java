@@ -12,6 +12,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class NotificationService extends IntentService {
@@ -22,6 +23,8 @@ public class NotificationService extends IntentService {
     int notificationId = 1;
 
     boolean b = true;
+
+    static Map<String, ArrayList<Sight>> sights = new HashMap<>();
 
 
     public NotificationService() {
@@ -50,7 +53,7 @@ public class NotificationService extends IntentService {
         ArrayList<Sight> out = new ArrayList<>();
         getCurrentLocation();
 
-        for (Map.Entry<String, ArrayList<Sight>> entry : MainActivity.sights.entrySet()) {
+        for (Map.Entry<String, ArrayList<Sight>> entry : sights.entrySet()) {
             ArrayList<Sight> arr = entry.getValue();
             for(Sight s: arr){
                 if(isNear(s) && !s.getUserNotified()){
@@ -58,7 +61,7 @@ public class NotificationService extends IntentService {
                     s.setUserNotified();
                 }
             }
-            MainActivity.sights.put(entry.getKey(), arr);
+            LeftFragment.sights.put(entry.getKey(), arr);
         }
 
         return out;
@@ -109,5 +112,9 @@ public class NotificationService extends IntentService {
             return true;
         }
         return false;
+    }
+
+    public static void setData(Map<String, ArrayList<Sight>> sights1) {
+        sights = sights1;
     }
 }

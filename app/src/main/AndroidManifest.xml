@@ -3,6 +3,7 @@
     package="net.htlgrieskirchen.jthanner18.mstrasser18.bettertravelling">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:icon="@mipmap/ic_launcher"

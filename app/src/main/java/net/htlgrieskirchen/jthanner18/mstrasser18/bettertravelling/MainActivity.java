@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
         lm = (LocationManager) getSystemService(LOCATION_SERVICE);
         checkPermissionGPS();
 
+
         //Notificaions
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
         NotificationChannel channel = new NotificationChannel(String.valueOf(CHANNEL_ID), "channel", importance);

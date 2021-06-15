@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -22,11 +23,16 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.datepicker.OnSelectionChangedListener;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class LeftFragment extends Fragment implements View.OnClickListener{
     private static final String TAG = LeftFragment.class.getSimpleName();
@@ -37,7 +43,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
     static ArrayAdapter<String> spinnerAdapter;
     private Button addCity;
     private Spinner dropdown;
-    private Map<String, ArrayList<Sight>> sights = new HashMap<>();
+    static Map<String, ArrayList<Sight>> sights = new HashMap<>();
     private String current_city = "";
     MainActivity ma = MainActivity.getInstance();
     private static LeftFragment instance;
@@ -113,26 +119,28 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
 
 
     private void showDialog(View v) {
+        ArrayList<Sight> sight = new ArrayList<>();
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                /*
-                GetSights gs = new GetSights(city[0]);
+                GetSights gs = new GetSights(current_city);
                 gs.execute();
                 try {
                     JSONObject result = gs.get();
-                    // JSONObject Auswertung Todo
+                    JSONArray results = result.getJSONArray("results");
+                    for (int i = 0; i < results.length(); i++) {
+                        JSONObject jo = results.getJSONObject(i);
+                        String name = jo.getString("name");
+                        sight.add(new Sight(name));
+                    }
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                */
-
-                // Die ArrayList ist noch als Test gedacht.
-                ArrayList<Sight> s = new ArrayList<>();
-                s.add(new Sight("Freiheitsstatue"));
-                sights.put(current_city, s);
+                sights.put(current_city, sight);
                 boolean exists = false;
                 for (int i = 0; i < spinnerItems.size(); i++) {
                     if (spinnerItems.get(i).equals(current_city)) {
@@ -186,12 +194,12 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
         for (Map.Entry<String, ArrayList<Sight>> entry : sights.entrySet()) {
             if (entry.getKey().equals(current_city)) {
                 for (int i = 0; i < entry.getValue().size(); i++) {
-                    items.add(entry.getKey() + ": " + entry.getValue().get(i).getName());
+                    items.add(entry.getValue().get(i).getName());
                 }
             }
         }
         adapter.notifyDataSetChanged();
-        MainActivity.setData(items, spinnerItems, sights);
+        NotificationService.setData(sights);
     }
 
     public static LeftFragment getInstance() {
@@ -218,7 +226,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
             sights = (Map<String, ArrayList<Sight>>) savedInstanceState.getSerializable("map");
 
             if (items != null && spinnerItems != null && sights != null) {
-                ma.setData(items, spinnerItems, sights);
+                MainActivity.setData(items, spinnerItems, sights);
             }
         }
     }

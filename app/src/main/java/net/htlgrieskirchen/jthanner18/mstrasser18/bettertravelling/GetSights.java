@@ -1,6 +1,7 @@
 package net.htlgrieskirchen.jthanner18.mstrasser18.bettertravelling;
 
 import android.os.AsyncTask;
+import android.util.JsonReader;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -9,15 +10,6 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import android.os.AsyncTask;
-
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -44,7 +36,7 @@ public class GetSights extends AsyncTask<String, Integer, JSONObject> {
     protected JSONObject doInBackground(String... strings) {
         String sJson = "";
         try {
-            HttpURLConnection connection = (HttpURLConnection) new URL("Todo").openConnection();
+            HttpURLConnection connection = (HttpURLConnection) new URL("https://maps.googleapis.com/maps/api/place/textsearch/json?query="+city+"+point+of+interest&language=de&key=AIzaSyClUs4MaprwwKPIqcnE4Dd8PzKxO4vYQhE").openConnection();
             connection.setRequestMethod("GET");
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
