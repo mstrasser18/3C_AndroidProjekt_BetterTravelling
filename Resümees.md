@@ -21,3 +21,15 @@ Es sind soweit keine Probleme aufgetreten.
 Die Fertigstellung der Einbindung der Placefinder-API verzögert sich
 #### Was wird nächste Woche umgesetzt?
 Google Maps Weiterleitung, Routenplaner, Hotelfinder-API, Hotelbildschirm
+
+# Woche 09.06 - 16.06
+#### Was ist gut gelaufen?
+Placefinder-API, Notifications
+#### Welche AP's wurden erledigt?
+Placefinder-API, Google Maps Weiterleitung, Notifications, Einstellungen
+#### Welche Probleme sind aufgetreten?
+Google Maps Weiterleitung machte Probleme wegen der Koordinaten-Übergabe
+#### Wie liegt die Gruppe im Zeitplan?
+Alle geplanten APs wurden erledigt - Zeitplan wird derzeit eingehalten
+#### Was wird nächste Woche umgesetzt?
+Hotelfinder-API einbauen, Hotelbildschirm designen
