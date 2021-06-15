@@ -1,6 +1,10 @@
 package net.htlgrieskirchen.jthanner18.mstrasser18.bettertravelling;
 
+import androidx.appcompat.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
+
 import androidx.preference.Preference;
 
 import androidx.preference.PreferenceFragmentCompat;
@@ -12,14 +16,29 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         setPreferencesFromResource(R.xml.preferences, rootKey);
 
         Preference button = findPreference("preference_delete_lists");
+        Context instance = this.getContext();
         //Delte List Preference-Button
         button.setOnPreferenceClickListener(new androidx.preference.Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(androidx.preference.Preference preference) {
-                //TODO
-                //Listen löschen
-                return true;
+                new AlertDialog.Builder(instance)
+                        .setTitle("Listen löschen")
+                        .setMessage("Wollen sie wirklich alle Listen löschen?")
+                        .setCancelable(false)
+                        .setPositiveButton("OK", (dialog, which)-> resetLists())
+                        .setNeutralButton("Abbrechen", null)
+                        .show();
+                return  true;
             }
         });
+    }
+
+    private void resetLists(){
+        //TODO Spinner neu initailisieren
+        LeftFragment.sights.clear();
+        LeftFragment.spinnerItems.clear();
+        LeftFragment.spinnerAdapter.notifyDataSetChanged();
+        LeftFragment.items.clear();
+        LeftFragment.adapter.notifyDataSetChanged();
     }
 }

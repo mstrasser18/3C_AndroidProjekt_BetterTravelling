@@ -16,9 +16,11 @@ import java.net.URL;
 
 public class GetSights extends AsyncTask<String, Integer, JSONObject> {
     private String city;
+    private final String KEY;
 
     public GetSights(String city) {
         this.city = city;
+        this.KEY = "";
     }
 
     @Override
@@ -36,7 +38,7 @@ public class GetSights extends AsyncTask<String, Integer, JSONObject> {
     protected JSONObject doInBackground(String... strings) {
         String sJson = "";
         try {
-            HttpURLConnection connection = (HttpURLConnection) new URL("https://maps.googleapis.com/maps/api/place/textsearch/json?query="+city+"+point+of+interest&language=de&key=AIzaSyClUs4MaprwwKPIqcnE4Dd8PzKxO4vYQhE").openConnection();
+            HttpURLConnection connection = (HttpURLConnection) new URL("https://maps.googleapis.com/maps/api/place/textsearch/json?query="+city+"+point+of+interest&language=de&key="+KEY).openConnection();
             connection.setRequestMethod("GET");
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {

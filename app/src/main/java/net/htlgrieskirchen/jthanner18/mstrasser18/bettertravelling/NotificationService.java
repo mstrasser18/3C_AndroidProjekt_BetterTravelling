@@ -34,13 +34,16 @@ public class NotificationService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         while (true) {
+            if(!MainActivity.getNotifications){
+                stopSelf();
+                return;
+            }
             try {
                 ArrayList<Sight> e;
                 if(MainActivity.isGpsGranted){
                     e = checkIfNear();
                     if(!e.isEmpty())postNotification(e);
                 }
-
                 Thread.sleep(10000);
             } catch (Exception e) {
                 return;
@@ -103,7 +106,7 @@ public class NotificationService extends IntentService {
         Location current = new Location("current");
         current.setLatitude(latitude);
         current.setLongitude(longitude);
-        Location sight = new Location("todo");
+        Location sight = new Location("sight");
         sight.setLatitude(e.getLat());
         sight.setLongitude(e.getLon());
 

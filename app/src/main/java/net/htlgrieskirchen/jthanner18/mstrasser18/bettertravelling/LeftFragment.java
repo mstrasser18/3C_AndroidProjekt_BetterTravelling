@@ -37,13 +37,13 @@ import java.util.concurrent.ExecutionException;
 public class LeftFragment extends Fragment implements View.OnClickListener{
     private static final String TAG = LeftFragment.class.getSimpleName();
     private ListView list;
-    private ArrayList<String> items = new ArrayList<>();
+    static ArrayList<String> items = new ArrayList<>();
     static ArrayList<String> spinnerItems = new ArrayList<>();
-    private ArrayAdapter<String> adapter;
+    static ArrayAdapter<String> adapter;
     static ArrayAdapter<String> spinnerAdapter;
     private Button addCity;
-    private Spinner dropdown;
-    static Map<String, ArrayList<Sight>> sights = new HashMap<>();
+    public static Spinner dropdown;
+    public static Map<String, ArrayList<Sight>> sights = new HashMap<>();
     private String current_city = "";
     MainActivity ma = MainActivity.getInstance();
     private static LeftFragment instance;

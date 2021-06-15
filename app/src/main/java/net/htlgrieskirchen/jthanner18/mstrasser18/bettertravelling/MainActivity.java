@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
     static NotificationManagerCompat notificationManagerCompat;
     public static boolean getNotifications = false;
     public static final int CHANNEL_ID = 120;
+    private Intent notificationsIntent;
 
     //GPS
     public static LocationManager lm;
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
         //Preferences
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         preferencesChangeListener = ( sharedPrefs, key ) -> preferenceChanged(sharedPrefs, key);
+        prefs.registerOnSharedPreferenceChangeListener(preferencesChangeListener);
         getNotifications = true;
 
         //GPS
@@ -96,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
 
 
         //Notificaions
+        notificationsIntent = new Intent(this, NotificationService.class);
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
         NotificationChannel channel = new NotificationChannel(String.valueOf(CHANNEL_ID), "channel", importance);
 
@@ -202,13 +205,11 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
 
     //Notifications
     public void startNotificationService() {
-        Intent intent = new Intent(this, NotificationService.class);
-        startService(intent);
+        startService(notificationsIntent);
     }
 
     public void stopNotificationService() {
-        Intent intent = new Intent(this, NotificationService.class);
-        stopService(intent);
+        stopService(notificationsIntent);
     }
 
     //GPS
