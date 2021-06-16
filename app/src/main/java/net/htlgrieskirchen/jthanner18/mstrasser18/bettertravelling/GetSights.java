@@ -20,7 +20,7 @@ public class GetSights extends AsyncTask<String, Integer, JSONObject> {
 
     public GetSights(String city) {
         this.city = city;
-        this.KEY = "AIzaSyClUs4MaprwwKPIqcnE4Dd8PzKxO4vYQhE";
+        this.KEY = "";
     }
 
     @Override
