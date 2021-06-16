@@ -31,9 +31,8 @@ public class RightActivity extends AppCompatActivity {
         if (intent == null) return;
         RightFragment rightFragment = (RightFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragRight);
-        int pos = intent.getIntExtra("pos", -1);
         String item = intent.getStringExtra("item");
-        rightFragment.show(pos, item);
+        rightFragment.show(item);
     }
 
     private void intializeViews() {

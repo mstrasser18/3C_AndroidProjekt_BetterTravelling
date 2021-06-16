@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
     private RightFragment rightFragment;
     private boolean showRight = false;
     static Map<String, ArrayList<Sight>> sights = new HashMap<>();
-    // private String currentCity;
+    static String currentCity;
     static ArrayList<String> items;
     static ArrayList<String> spinnerItems;
     private static MainActivity instance;
@@ -118,23 +118,23 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
     }
 
     @Override
-    public void onSelectionChanged(int pos, String item) {
-        if (showRight) rightFragment.show(pos, item);
-        else callRightActivity(pos, item);
+    public void onSelectionChanged(int pos, String item /*String cityInfo, String cityAddress, String cords, String stuffstuff*/) {
+        if (showRight) rightFragment.show(item);
+        else callRightActivity(item);
     }
 
-    public void callRightActivity(int pos, String item) {
+    public void callRightActivity(String item /*String cityInfo, String cityAddress, String cords, String stuffstuff*/) {
         Log.d(TAG, "callRightActivity: entered");
         Intent intent = new Intent(this, RightActivity.class);
-        intent.putExtra("pos", pos);
         intent.putExtra("item", item);
         startActivity(intent);
     }
 
-    public static void setData(ArrayList<String> items1, ArrayList<String> spinnerItems1, Map<String, ArrayList<Sight>> sights1) {
+    public static void setData(ArrayList<String> items1, ArrayList<String> spinnerItems1, Map<String, ArrayList<Sight>> sights1, String city) {
         items = items1;
         spinnerItems = spinnerItems1;
         sights = sights1;
+        currentCity = city;
     }
 
     @Override
@@ -173,10 +173,11 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
-        if (items != null && spinnerItems != null && sights != null) {
+        if (items != null && spinnerItems != null && sights != null && currentCity != null) {
             savedInstanceState.putSerializable("items", items);
             savedInstanceState.putSerializable("spinneritems", spinnerItems);
             savedInstanceState.putSerializable("map", (Serializable) sights);
+            savedInstanceState.putSerializable("currentcity", currentCity);
         }
         super.onSaveInstanceState(savedInstanceState);
     }
@@ -188,15 +189,22 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
             items = (ArrayList<String>) savedInstanceState.getSerializable("items");
             spinnerItems = (ArrayList<String>) savedInstanceState.getSerializable("spinneritems");
             sights = (Map<String, ArrayList<Sight>>) savedInstanceState.getSerializable("map");
+            currentCity = (String) savedInstanceState.getSerializable("currentcity");
 
-            if (items != null && spinnerItems != null && sights != null) {
+            if (items != null && spinnerItems != null && sights != null && currentCity != null) {
                 if (showRight) {
-                    for (int i = 0; i < items.size(); i++) {
-                        rightFragment.show(i, items.get(i));
+                    for (int i = 0; i < sights.get(currentCity).size(); i++) {
+                        rightFragment.show(sights.get(currentCity).get(i).getName() + ";"
+                                + sights.get(currentCity).get(i).getAddress() + ";"
+                                + (sights.get(currentCity).get(i).getLat() + ", " + sights.get(currentCity).get(i).getLon()) + ";"
+                                + sights.get(currentCity).get(i).getRating() + ";");
                     }
                 } else {
-                    for (int i = 0; i < items.size(); i++) {
-                        callRightActivity(i, items.get(i));
+                    for (int i = 0; i < sights.get(currentCity).size(); i++) {
+                        callRightActivity(sights.get(currentCity).get(i).getName() + ";"
+                                + sights.get(currentCity).get(i).getAddress() + ";"
+                                + (sights.get(currentCity).get(i).getLat() + ", " + sights.get(currentCity).get(i).getLon()) + ";"
+                                + sights.get(currentCity).get(i).getRating() + ";");
                     }
                 }
             }
@@ -238,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
         }
     }
 
-    private void gpsGranted(){
+    private void gpsGranted() {
         isGpsGranted = true;
         LocationListener ll = new LocationListener() {
             @Override

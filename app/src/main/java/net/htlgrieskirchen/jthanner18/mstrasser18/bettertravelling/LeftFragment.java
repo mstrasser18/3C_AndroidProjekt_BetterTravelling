@@ -42,8 +42,8 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
     static ArrayAdapter<String> adapter;
     static ArrayAdapter<String> spinnerAdapter;
     private Button addCity;
-    public static Spinner dropdown;
-    public static Map<String, ArrayList<Sight>> sights = new HashMap<>();
+    static Spinner dropdown;
+    static Map<String, ArrayList<Sight>> sights = new HashMap<>();
     private String current_city = "";
     MainActivity ma = MainActivity.getInstance();
     private static LeftFragment instance;
@@ -94,7 +94,13 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
     }
 
     private void itemSelected(int position) {
-        String item = items.get(position);
+        String sight = items.get(position);
+        String item = "";
+        for (int i = 0; i < sights.get(current_city).size(); i++) {
+            if (sights.get(current_city).get(i).getName().equals(sight)) {
+                item += sights.get(current_city).get(i).getName() + ";" + sights.get(current_city).get(i).getAddress() + ";" + (sights.get(current_city).get(i).getLat() + ", " + sights.get(current_city).get(i).getLon()) + ";" + sights.get(current_city).get(i).getRating();
+            }
+        }
         listener.onSelectionChanged(position, item);
     }
 
@@ -131,7 +137,11 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
                     for (int i = 0; i < results.length(); i++) {
                         JSONObject jo = results.getJSONObject(i);
                         String name = jo.getString("name");
-                        sight.add(new Sight(name));
+                        String address = jo.getString("formatted_address");
+                        double lat = jo.getJSONObject("geometry").getJSONObject("location").getDouble("lat");
+                        double lon = jo.getJSONObject("geometry").getJSONObject("location").getDouble("lng");
+                        double rating = jo.getDouble("rating");
+                        sight.add(new Sight(name, address, lat, lon, rating));
                     }
                 } catch (ExecutionException e) {
                     e.printStackTrace();
@@ -209,10 +219,11 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
-        if (items != null && spinnerItems != null && sights != null) {
+        if (items != null && spinnerItems != null && sights != null && current_city != null) {
             savedInstanceState.putSerializable("items", items);
             savedInstanceState.putSerializable("spinneritems", spinnerItems);
             savedInstanceState.putSerializable("map", (Serializable) sights);
+            savedInstanceState.putSerializable("currentcity", current_city);
         }
         super.onSaveInstanceState(savedInstanceState);
     }
@@ -224,9 +235,10 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
             items = (ArrayList<String>) savedInstanceState.getSerializable("items");
             spinnerItems = (ArrayList<String>) savedInstanceState.getSerializable("spinneritems");
             sights = (Map<String, ArrayList<Sight>>) savedInstanceState.getSerializable("map");
+            current_city = (String) savedInstanceState.getSerializable("currentcity");
 
-            if (items != null && spinnerItems != null && sights != null) {
-                MainActivity.setData(items, spinnerItems, sights);
+            if (items != null && spinnerItems != null && sights != null && current_city != null) {
+                MainActivity.setData(items, spinnerItems, sights, current_city);
             }
         }
     }

@@ -6,13 +6,16 @@ public class Sight implements Serializable {
     private String name;
     private double lon;
     private double lat;
+    private String address;
+    private double rating;
     private boolean userNotified;
 
-    public Sight (String name) {
+    public Sight (String name, String address, double lat, double lon, double rating) {
         this.name = name;
-        //TODO
-        lon = 0.0;
-        lat = 0.0;
+        this.lon = lon;
+        this.lat = lat;
+        this.rating = rating;
+        this.address = address;
         userNotified = false;
     }
 
@@ -24,8 +27,16 @@ public class Sight implements Serializable {
         return lat;
     }
 
+    public String getAddress(){
+        return address;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public double getRating() {
+        return rating;
     }
 
     public boolean getUserNotified(){return userNotified;}

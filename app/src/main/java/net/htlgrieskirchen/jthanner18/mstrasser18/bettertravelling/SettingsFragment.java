@@ -33,8 +33,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         });
     }
 
-    private void resetLists(){
-        //TODO Spinner neu initailisieren
+    private void resetLists() {
         LeftFragment.sights.clear();
         LeftFragment.spinnerItems.clear();
         LeftFragment.spinnerAdapter.notifyDataSetChanged();
