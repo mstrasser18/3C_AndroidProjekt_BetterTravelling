@@ -48,6 +48,8 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
     MainActivity ma = MainActivity.getInstance();
     private static LeftFragment instance;
 
+    private final String KEY = "AIzaSyClUs4MaprwwKPIqcnE4Dd8PzKxO4vYQhE";
+
     @Override
     public void onAttach(Context context) {
         Log.d(TAG, "onAttach: entered");
@@ -98,7 +100,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
         String item = "";
         for (int i = 0; i < sights.get(current_city).size(); i++) {
             if (sights.get(current_city).get(i).getName().equals(sight)) {
-                item += sights.get(current_city).get(i).getName() + ";" + sights.get(current_city).get(i).getAddress() + ";" + (sights.get(current_city).get(i).getLat() + ", " + sights.get(current_city).get(i).getLon()) + ";" + sights.get(current_city).get(i).getRating();
+                item += sights.get(current_city).get(i).getName() + ";" + sights.get(current_city).get(i).getAddress() + ";" + (sights.get(current_city).get(i).getLat() + ", " + sights.get(current_city).get(i).getLon()) + ";" + sights.get(current_city).get(i).getRating() + ";" + sights.get(current_city).get(i).getPicLink();
             }
         }
         listener.onSelectionChanged(position, item);
@@ -141,7 +143,10 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
                         double lat = jo.getJSONObject("geometry").getJSONObject("location").getDouble("lat");
                         double lon = jo.getJSONObject("geometry").getJSONObject("location").getDouble("lng");
                         double rating = jo.getDouble("rating");
-                        sight.add(new Sight(name, address, lat, lon, rating));
+                        int height = jo.getJSONArray("photos").getJSONObject(0).getInt("height");
+                        int width = jo.getJSONArray("photos").getJSONObject(0).getInt("width");
+                        String reference = jo.getJSONArray("photos").getJSONObject(0).getString("photo_reference");
+                        sight.add(new Sight(name, address, lat, lon, rating, ("https://maps.googleapis.com/maps/api/place/photo?photoreference=" + reference + "&sensor=false&maxheight=" + height + "&maxwidth=" + width + "&key=" + KEY)));
                     }
                 } catch (ExecutionException e) {
                     e.printStackTrace();

@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 public class RightFragment extends Fragment implements View.OnClickListener {
     public final static String TAG = RightFragment.class.getSimpleName();
     private TextView info;
@@ -25,6 +27,7 @@ public class RightFragment extends Fragment implements View.OnClickListener {
     private TextView rating;
     private Button showOnMap;
     private ImageView imageView;
+    private static RightFragment instance;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,6 +36,7 @@ public class RightFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_right, container, false);
         intializeViews(view);
+        instance = this;
         showOnMap = view.findViewById(R.id.show_on_map);
         showOnMap.setOnClickListener(this::onClick);
         imageView = view.findViewById(R.id.image_sight);
@@ -58,13 +62,16 @@ public class RightFragment extends Fragment implements View.OnClickListener {
         address.setText("Adresse: " + parts[1]);
         coord.setText("Koordinaten: " + parts[2]);
         rating.setText("Rating: " + parts[3]);
-        /*
-        PrintHelper photoPrinter = new PrintHelper(getActivity());
-        photoPrinter.setScaleMode(PrintHelper.SCALE_MODE_FIT);
-        //Bitmap bitmap = imageView.getDrawingCache(  );
-        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-        photoPrinter.printBitmap("test print",bitmap);
-         */
+
+        new Thread(new Runnable() {
+            public void run() {
+                imageView.post(new Runnable() {
+                    public void run() {
+                        Picasso.get().load(parts[4]).into(imageView);
+                    }
+                });
+            }
+        }).start();
     }
 
     @Override
@@ -74,5 +81,9 @@ public class RightFragment extends Fragment implements View.OnClickListener {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse("geo:" + cords[0] + "," + cords[1] + "?z=15"));
         startActivity(intent);
+    }
+
+    public static RightFragment getInstance() {
+        return instance;
     }
 }

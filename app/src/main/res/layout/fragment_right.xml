@@ -1,91 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".RightFragment">
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/info_sight"
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15sp"
-        android:layout_marginLeft="15sp"
-        android:layout_marginTop="15sp"
-        android:layout_marginEnd="15sp"
-        android:layout_marginRight="15sp"
-        android:text="Informationen zu "
-        android:textSize="22sp"
-        android:textStyle="bold" />
+        android:orientation="vertical"
+        tools:context=".RightFragment">
 
-    <TextView
-        android:id="@+id/address_sight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15sp"
-        android:layout_marginLeft="15sp"
-        android:layout_marginTop="5sp"
-        android:layout_marginEnd="15sp"
-        android:layout_marginRight="15sp"
-        android:text="Adresse"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/info_sight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginLeft="15sp"
+            android:layout_marginTop="15sp"
+            android:layout_marginEnd="15sp"
+            android:layout_marginRight="15sp"
+            android:text="Informationen zu "
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/latlon_sight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15sp"
-        android:layout_marginLeft="15sp"
-        android:layout_marginTop="5sp"
-        android:layout_marginEnd="15sp"
-        android:layout_marginRight="15sp"
-        android:text="Koordinaten"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/address_sight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginLeft="15sp"
+            android:layout_marginTop="5sp"
+            android:layout_marginEnd="15sp"
+            android:layout_marginRight="15sp"
+            android:text="Adresse"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/rating"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15sp"
-        android:layout_marginLeft="15sp"
-        android:layout_marginTop="5sp"
-        android:layout_marginEnd="15sp"
-        android:layout_marginRight="15sp"
-        android:text="Rating"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/latlon_sight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginLeft="15sp"
+            android:layout_marginTop="5sp"
+            android:layout_marginEnd="15sp"
+            android:layout_marginRight="15sp"
+            android:text="Koordinaten"
+            android:textSize="16sp" />
 
-    <ImageView
-        android:id="@+id/image_sight"
-        android:layout_width="match_parent"
-        android:layout_height="303dp"
-        android:layout_marginTop="5sp"
-        android:layout_marginBottom="5sp"
-        tools:src="@tools:sample/avatars" />
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginLeft="15sp"
+            android:layout_marginTop="5sp"
+            android:layout_marginEnd="15sp"
+            android:layout_marginRight="15sp"
+            android:text="Rating"
+            android:textSize="16sp" />
 
-    <Button
-        android:id="@+id/find_hotels"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15sp"
-        android:layout_marginLeft="15sp"
-        android:layout_marginTop="5sp"
-        android:layout_marginEnd="15sp"
-        android:layout_marginRight="15sp"
-        android:layout_marginBottom="5sp"
-        android:text="Hotels in der Nähe anzeigen"
-        android:textAllCaps="false" />
+        <ImageView
+            android:id="@+id/image_sight"
+            android:layout_width="match_parent"
+            android:layout_height="303dp"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp"
+            tools:src="@tools:sample/avatars" />
 
-    <Button
-        android:id="@+id/show_on_map"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15sp"
-        android:layout_marginLeft="15sp"
-        android:layout_marginEnd="15sp"
-        android:layout_marginRight="15sp"
-        android:layout_marginBottom="10sp"
-        android:text="Auf Karte anzeigen"
-        android:textAllCaps="false" />
-</LinearLayout>
+        <Button
+            android:id="@+id/find_hotels"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginLeft="15sp"
+            android:layout_marginTop="5sp"
+            android:layout_marginEnd="15sp"
+            android:layout_marginRight="15sp"
+            android:layout_marginBottom="5sp"
+            android:text="Hotels in der Nähe anzeigen"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/show_on_map"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginLeft="15sp"
+            android:layout_marginEnd="15sp"
+            android:layout_marginRight="15sp"
+            android:layout_marginBottom="10sp"
+            android:text="Auf Karte anzeigen"
+            android:textAllCaps="false" />
+    </LinearLayout>
+
+</ScrollView>

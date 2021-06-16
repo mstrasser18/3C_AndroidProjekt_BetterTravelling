@@ -9,6 +9,10 @@ import androidx.preference.Preference;
 
 import androidx.preference.PreferenceFragmentCompat;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
@@ -39,5 +43,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         LeftFragment.spinnerAdapter.notifyDataSetChanged();
         LeftFragment.items.clear();
         LeftFragment.adapter.notifyDataSetChanged();
+        NotificationService.setData(new HashMap<String, ArrayList<Sight>>());
     }
 }
