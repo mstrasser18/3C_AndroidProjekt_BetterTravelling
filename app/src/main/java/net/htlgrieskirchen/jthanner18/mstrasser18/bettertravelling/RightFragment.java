@@ -93,9 +93,8 @@ public class RightFragment extends Fragment implements View.OnClickListener {
                 Intent hotelIntent = new Intent(RightFragment.instance.getActivity(), HotelActivity.class);
                 startActivityForResult(hotelIntent, RQ_PREFERENCES);
                 HotelFragment.currentSightName = info.getText().toString();
-                HotelFragment.currentSightAddress = address.getText().toString();
-                HotelFragment.currentSightCords = coord.getText().toString();
-                HotelFragment.currentSightRating = rating.getText().toString();
+                HotelFragment.currentSightLat = coord.getText().toString().split(", ")[0].replace("Koordinaten: ", "");
+                HotelFragment.currentSightLon = coord.getText().toString().split(", ")[1];
         }
     }
 

@@ -13,10 +13,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -29,9 +32,8 @@ public class HotelFragment extends Fragment {
     private ListView hotels;
     private ArrayList<String> hotelNames;
     static String currentSightName;
-    static String currentSightAddress;
-    static String currentSightCords;
-    static String currentSightRating;
+    static String currentSightLon;
+    static String currentSightLat;
     private ArrayAdapter<String> adapter;
     private static HotelFragment instance;
 
@@ -42,7 +44,7 @@ public class HotelFragment extends Fragment {
         View view = inflater.inflate(R.layout.hotelscreen, container, false);
         intializeViews(view);
         instance = this;
-        show();
+        show(view);
         return view;
     }
     private void intializeViews(View view) {
@@ -58,22 +60,12 @@ public class HotelFragment extends Fragment {
     }
 
 
-    public void show() {
+    public void show(View v) {
         info.setText("Hotels in der Nähe von " + currentSightName);
         // hotelNames.add("Beispielhotel");
-        adapter.notifyDataSetChanged();
-        /*
-        GetHotels gh = new GetHotels(currentSightName, currentSightAddress, currentSightCords);
+
+        GetHotels gh = new GetHotels(v.findViewById(R.id.progressBar), currentSightLon, currentSightLat, hotelNames, adapter);
         gh.execute();
-        try {
-            JSONObject jo = gh.get();
-            // Todo Hotel API und Auswertung in ArrayList hier einbauen
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-         */
     }
 
     public static HotelFragment getInstance() {

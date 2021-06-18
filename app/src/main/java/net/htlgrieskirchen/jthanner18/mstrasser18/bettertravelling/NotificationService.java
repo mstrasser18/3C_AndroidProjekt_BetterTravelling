@@ -77,7 +77,7 @@ public class NotificationService extends IntentService {
 
         for(Sight s: e) {
             builder = new NotificationCompat.Builder(this, String.valueOf(MainActivity.CHANNEL_ID))
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(R.drawable.ic_launcher_background)
                     .setLargeIcon(BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher))
                     .setContentTitle("Nahe Sehenswürdigkeit")
                     .setContentText(s.toString())
@@ -110,8 +110,9 @@ public class NotificationService extends IntentService {
         sight.setLatitude(e.getLat());
         sight.setLongitude(e.getLon());
 
+        //distance in km
         float distance = current.distanceTo(sight)/1000;
-        if(distance <= 700){
+        if(distance <= 5){
             return true;
         }
         return false;
