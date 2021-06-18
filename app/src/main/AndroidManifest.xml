@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BetterTravelling">
         <service android:name=".NotificationService"/>
-        <activity android:name=".RightActivity"></activity>
+        <activity
+            android:name=".RightActivity"
+            android:label="Details"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +26,9 @@
         <activity
             android:name=".SettingsActivity"
             android:label="Einstellungen"/>
+        <activity
+            android:name=".HotelActivity"
+            android:label="Hotels"/>
     </application>
     <!--android:icon="@mipmap/ic_launcher"-->
 

@@ -11,6 +11,7 @@ import androidx.print.PrintHelper;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -26,8 +27,10 @@ public class RightFragment extends Fragment implements View.OnClickListener {
     private TextView coord;
     private TextView rating;
     private Button showOnMap;
+    private Button showHotels;
     private ImageView imageView;
     private static RightFragment instance;
+    private static final int RQ_PREFERENCES = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +42,8 @@ public class RightFragment extends Fragment implements View.OnClickListener {
         instance = this;
         showOnMap = view.findViewById(R.id.show_on_map);
         showOnMap.setOnClickListener(this::onClick);
+        showHotels = view.findViewById(R.id.find_hotels);
+        showHotels.setOnClickListener(this::onClick);
         imageView = view.findViewById(R.id.image_sight);
         return view;
     }
@@ -58,7 +63,7 @@ public class RightFragment extends Fragment implements View.OnClickListener {
     public void show(String item) {
         Log.d(TAG, "show: entered");
         String[] parts = item.split(";");
-        info.setText("Informationen zu " + parts[0]);
+        info.setText(parts[0]);
         address.setText("Adresse: " + parts[1]);
         coord.setText("Koordinaten: " + parts[2]);
         rating.setText("Rating: " + parts[3]);
@@ -76,11 +81,22 @@ public class RightFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        String[] cords = coord.getText().toString().split(", ");
-        cords[0] = cords[0].replace("Koordinaten: ", "");
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("geo:" + cords[0] + "," + cords[1] + "?z=15"));
-        startActivity(intent);
+        switch (v.getId()) {
+            case R.id.show_on_map:
+                String[] cords = coord.getText().toString().split(", ");
+                cords[0] = cords[0].replace("Koordinaten: ", "");
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("geo:" + cords[0] + "," + cords[1] + "?z=15"));
+                startActivity(intent);
+                break;
+            case R.id.find_hotels:
+                Intent hotelIntent = new Intent(RightFragment.instance.getActivity(), HotelActivity.class);
+                startActivityForResult(hotelIntent, RQ_PREFERENCES);
+                HotelFragment.currentSightName = info.getText().toString();
+                HotelFragment.currentSightAddress = address.getText().toString();
+                HotelFragment.currentSightCords = coord.getText().toString();
+                HotelFragment.currentSightRating = rating.getText().toString();
+        }
     }
 
     public static RightFragment getInstance() {

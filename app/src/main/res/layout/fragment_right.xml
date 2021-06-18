@@ -25,7 +25,7 @@
             android:layout_marginTop="15sp"
             android:layout_marginEnd="15sp"
             android:layout_marginRight="15sp"
-            android:text="Informationen zu "
+            android:text="Informationen"
             android:textSize="22sp"
             android:textStyle="bold" />
 

@@ -100,7 +100,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
         String item = "";
         for (int i = 0; i < sights.get(current_city).size(); i++) {
             if (sights.get(current_city).get(i).getName().equals(sight)) {
-                item += sights.get(current_city).get(i).getName() + ";" + sights.get(current_city).get(i).getAddress() + ";" + (sights.get(current_city).get(i).getLat() + ", " + sights.get(current_city).get(i).getLon()) + ";" + sights.get(current_city).get(i).getRating() + ";" + sights.get(current_city).get(i).getPicLink();
+                item = sights.get(current_city).get(i).getName() + ";" + sights.get(current_city).get(i).getAddress() + ";" + (sights.get(current_city).get(i).getLat() + ", " + sights.get(current_city).get(i).getLon()) + ";" + sights.get(current_city).get(i).getRating() + ";" + sights.get(current_city).get(i).getPicLink();
             }
         }
         listener.onSelectionChanged(position, item);
@@ -135,18 +135,23 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
                 gs.execute();
                 try {
                     JSONObject result = gs.get();
-                    JSONArray results = result.getJSONArray("results");
-                    for (int i = 0; i < results.length(); i++) {
-                        JSONObject jo = results.getJSONObject(i);
-                        String name = jo.getString("name");
-                        String address = jo.getString("formatted_address");
-                        double lat = jo.getJSONObject("geometry").getJSONObject("location").getDouble("lat");
-                        double lon = jo.getJSONObject("geometry").getJSONObject("location").getDouble("lng");
-                        double rating = jo.getDouble("rating");
-                        int height = jo.getJSONArray("photos").getJSONObject(0).getInt("height");
-                        int width = jo.getJSONArray("photos").getJSONObject(0).getInt("width");
-                        String reference = jo.getJSONArray("photos").getJSONObject(0).getString("photo_reference");
-                        sight.add(new Sight(name, address, lat, lon, rating, ("https://maps.googleapis.com/maps/api/place/photo?photoreference=" + reference + "&sensor=false&maxheight=" + height + "&maxwidth=" + width + "&key=" + KEY)));
+                    if (result.getString("status").equals("ZERO_RESULTS")) {
+                        Toast.makeText(LeftFragment.instance.getActivity(), "Es wurden zu Ihrer Stadt keine Sehenswürdigkeiten gefunden", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(LeftFragment.instance.getActivity(), "Sehenswürdigkeiten wurden hinzugefügt", Toast.LENGTH_LONG).show();
+                        JSONArray results = result.getJSONArray("results");
+                        for (int i = 0; i < results.length(); i++) {
+                            JSONObject jo = results.getJSONObject(i);
+                            String name = jo.getString("name");
+                            String address = jo.getString("formatted_address");
+                            double lat = jo.getJSONObject("geometry").getJSONObject("location").getDouble("lat");
+                            double lon = jo.getJSONObject("geometry").getJSONObject("location").getDouble("lng");
+                            double rating = jo.getDouble("rating");
+                            int height = jo.getJSONArray("photos").getJSONObject(0).getInt("height");
+                            int width = jo.getJSONArray("photos").getJSONObject(0).getInt("width");
+                            String reference = jo.getJSONArray("photos").getJSONObject(0).getString("photo_reference");
+                            sight.add(new Sight(name, address, lat, lon, rating, ("https://maps.googleapis.com/maps/api/place/photo?photoreference=" + reference + "&sensor=false&maxheight=" + height + "&maxwidth=" + width + "&key=" + KEY)));
+                        }
                     }
                 } catch (ExecutionException e) {
                     e.printStackTrace();
