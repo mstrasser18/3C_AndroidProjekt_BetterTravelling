@@ -7,6 +7,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.amadeus.Amadeus;
+import com.amadeus.Params;
+import com.amadeus.exceptions.ResponseException;
+import com.amadeus.resources.HotelOffer;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,6 +49,7 @@ public class GetHotels extends AsyncTask<String, Integer, JSONObject> {
 
     @Override
     protected JSONObject doInBackground(String... strings) {
+        /*
         String sJson = "";
         try {
             HttpURLConnection connection = (HttpURLConnection) new URL("https://test.api.amadeus.com/v2/shopping/hotel-offers?latitude="+lat+"&longitude="+lon+"&radius=5&radiusUnit=KM").openConnection();
@@ -66,13 +72,21 @@ public class GetHotels extends AsyncTask<String, Integer, JSONObject> {
         } catch (Exception e) {
             return null;
         }
+
+         */
+        HotelOffer[] offers = getHotels();
+        for (HotelOffer o: offers) {
+            hotelNames.add(o.getHotel().getName());
+        }
+        adapter.notifyDataSetChanged();
         return null;
     }
+
 
     @Override
     protected void onPostExecute(JSONObject json) {
         mProgressBar.setVisibility(View.INVISIBLE);
-
+    /*
         JSONArray data = null;
         try {
             data = json.getJSONArray("data");
@@ -84,7 +98,20 @@ public class GetHotels extends AsyncTask<String, Integer, JSONObject> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+     */
 
         super.onPostExecute(json);
+    }
+
+    public HotelOffer[] getHotels(){
+        Amadeus a = Amadeus.builder("oIS02vhkm9w4eyVhbyPwaPjkGUrzXBeW", "cHGezOEVzChZJSGM").build();
+        try {
+            HotelOffer[] offers;
+            offers = a.shopping.hotelOffers.get(Params.with("latitude",lat).and("longitude", lon).and("radius", 5).and("radiusUnit", "KM"));
+            return  offers;
+        } catch (ResponseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

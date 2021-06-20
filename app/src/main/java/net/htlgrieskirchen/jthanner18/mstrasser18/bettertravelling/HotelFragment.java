@@ -18,6 +18,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.amadeus.Amadeus;
+import com.amadeus.Params;
+import com.amadeus.exceptions.ResponseException;
+import com.amadeus.resources.HotelOffer;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
