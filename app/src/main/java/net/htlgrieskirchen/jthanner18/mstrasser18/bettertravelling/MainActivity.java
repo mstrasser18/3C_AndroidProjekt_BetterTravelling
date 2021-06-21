@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
         checkPermissionGPS();
 
 
+        /*
         //Notificaions
         notificationsIntent = new Intent(this, NotificationService.class);
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
@@ -109,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
         if(getNotifications){
             startNotificationService();
         }
+         */
 
     }
 

@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
@@ -27,7 +28,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 
@@ -41,15 +44,14 @@ public class HotelFragment extends Fragment {
     static String currentSightLat;
     private ArrayAdapter<String> adapter;
     private static HotelFragment instance;
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.hotelscreen, container, false);
+        view = inflater.inflate(R.layout.hotelscreen, container, false);
         intializeViews(view);
-        instance = this;
-        show(view);
         return view;
     }
     private void intializeViews(View view) {
@@ -64,16 +66,46 @@ public class HotelFragment extends Fragment {
         super.onStart();
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            //Restore the fragment's state here
+            instance = this;
+            hotelNames = (ArrayList<String>) savedInstanceState.getSerializable("names");
+            currentSightLat = (String) savedInstanceState.getSerializable("lat");
+            currentSightLon = (String) savedInstanceState.getSerializable("lon");
+            currentSightName = (String) savedInstanceState.getSerializable("name");
+
+            if (hotelNames != null && currentSightLat != null && currentSightLon != null && currentSightName != null) {
+                info.setText("Hotels in der Nähe von " + currentSightName);
+                adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, hotelNames);
+                hotels.setAdapter(adapter);
+            }
+        } else {
+            show(view);
+        }
+    }
 
     public void show(View v) {
         info.setText("Hotels in der Nähe von " + currentSightName);
-        // hotelNames.add("Beispielhotel");
 
-        GetHotels gh = new GetHotels(v.findViewById(R.id.progressBar), currentSightLon, currentSightLat, hotelNames, adapter);
+        GetHotels gh = new GetHotels(v.findViewById(R.id.progressBar), currentSightLon, currentSightLat, hotelNames, adapter/*, gt.get().getString("access_token")*/);
         gh.execute();
     }
 
     public static HotelFragment getInstance() {
         return instance;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
+        if (hotelNames != null && currentSightLat != null && currentSightLon != null && currentSightName != null) {
+            savedInstanceState.putSerializable("names", hotelNames);
+            savedInstanceState.putSerializable("lat", currentSightLat);
+            savedInstanceState.putSerializable("lon", currentSightLon);
+            savedInstanceState.putSerializable("name", currentSightName);
+        }
+        super.onSaveInstanceState(savedInstanceState);
     }
 }
