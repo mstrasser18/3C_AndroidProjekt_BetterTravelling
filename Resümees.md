@@ -43,5 +43,3 @@ Event-API, Event-Bildschirm
 Authentifizierung bei der Amadeus-API gestaltete sich als sehr kompliziert
 #### Wie liegt die Gruppe im Zeitplan?
 Das Projekt wurde pünktlich fertiggestellt (21.06)
-#### Was wird nächste Woche umgesetzt?
--
