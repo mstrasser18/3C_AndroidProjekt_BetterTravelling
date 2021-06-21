@@ -27,8 +27,8 @@
             android:name=".SettingsActivity"
             android:label="Einstellungen"/>
         <activity
-            android:name=".HotelActivity"
-            android:label="Hotels"/>
+            android:name=".EventActivity"
+            android:label="Events"/>
     </application>
     <!--android:icon="@mipmap/ic_launcher"-->
 

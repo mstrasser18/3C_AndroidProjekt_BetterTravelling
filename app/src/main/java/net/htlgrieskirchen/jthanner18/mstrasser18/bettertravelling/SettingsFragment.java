@@ -3,7 +3,6 @@ package net.htlgrieskirchen.jthanner18.mstrasser18.bettertravelling;
 import androidx.appcompat.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.preference.Preference;
 
@@ -11,7 +10,6 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 
 public class SettingsFragment extends PreferenceFragmentCompat {

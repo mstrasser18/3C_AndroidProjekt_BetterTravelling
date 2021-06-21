@@ -1,7 +1,6 @@
 package net.htlgrieskirchen.jthanner18.mstrasser18.bettertravelling;
 
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

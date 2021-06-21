@@ -5,12 +5,10 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
-import android.util.Size;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,8 +19,6 @@ public class NotificationService extends IntentService {
     double latitude = 0.0;
 
     int notificationId = 1;
-
-    boolean b = true;
 
     static Map<String, ArrayList<Sight>> sights = new HashMap<>();
 

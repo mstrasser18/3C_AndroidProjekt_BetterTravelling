@@ -3,8 +3,6 @@ package net.htlgrieskirchen.jthanner18.mstrasser18.bettertravelling;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,21 +19,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.datepicker.OnSelectionChangedListener;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public class LeftFragment extends Fragment implements View.OnClickListener{
-    private static final String TAG = LeftFragment.class.getSimpleName();
+public class LeftFragment extends Fragment implements View.OnClickListener {
     private ListView list;
     static ArrayList<String> items = new ArrayList<>();
     static ArrayList<String> spinnerItems = new ArrayList<>();
@@ -45,28 +39,23 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
     static Spinner dropdown;
     static Map<String, ArrayList<Sight>> sights = new HashMap<>();
     private String current_city = "";
-    MainActivity ma = MainActivity.getInstance();
     private static LeftFragment instance;
 
     private final String KEY = "AIzaSyClUs4MaprwwKPIqcnE4Dd8PzKxO4vYQhE";
 
     @Override
     public void onAttach(Context context) {
-        Log.d(TAG, "onAttach: entered");
         super.onAttach(context);
         instance = this;
         if (context instanceof OnSelectionChangedListener) {
             listener = (OnSelectionChangedListener) context;
         } else {
-            Log.d(TAG, "onAttach: Activity does not implement OnSelectionChangedListener");
+            Toast.makeText(LeftFragment.instance.getActivity(), "onAttach: Activity does not implement OnSelectionChangedListener", Toast.LENGTH_LONG);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: entered");
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_left, container, false);
         initializeViews(view);
         addCity = view.findViewById(R.id.addCity);
@@ -90,7 +79,6 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
     }
 
     private void initializeViews(View view) {
-        Log.d(TAG, "initializeViews: entered");
         list = view.findViewById(R.id.listOfCities);
         list.setOnItemClickListener((parent, view1, position, id) -> itemSelected(position));
     }
@@ -108,7 +96,6 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onStart() {
-        Log.d(TAG, "onStart: entered");
         super.onStart();
         adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, items);
         list.setAdapter(adapter);

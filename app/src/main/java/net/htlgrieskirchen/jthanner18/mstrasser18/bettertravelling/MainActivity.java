@@ -1,54 +1,29 @@
 package net.htlgrieskirchen.jthanner18.mstrasser18.bettertravelling;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationChannelCompat;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationChannelCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import android.app.NotificationChannel;
 import android.Manifest;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.preference.Preference;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import android.widget.Button;
-import android.widget.ListView;
-
-import org.json.JSONObject;
-
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity implements LeftFragment.OnSelectionChangedListener {
 
@@ -67,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
     public static LocationListener ll;
     public static boolean isGpsGranted;
 
-    private static final String TAG = MainActivity.class.getSimpleName();
     private RightFragment rightFragment;
     private boolean showRight = false;
     static Map<String, ArrayList<Sight>> sights = new HashMap<>();
@@ -75,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
     static ArrayList<String> items;
     static ArrayList<String> spinnerItems;
     private static MainActivity instance;
-    // LeftFragment lf = LeftFragment.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,24 +83,22 @@ public class MainActivity extends AppCompatActivity implements LeftFragment.OnSe
         if(getNotifications){
             startNotificationService();
         }
-         */
+        */
 
     }
 
     private void initializeView() {
-        Log.d(TAG, "initializeView: entered");
         rightFragment  = (RightFragment) getSupportFragmentManager().findFragmentById(R.id.fragRight);
         showRight = rightFragment != null && rightFragment.isInLayout();
     }
 
     @Override
-    public void onSelectionChanged(int pos, String item /*String cityInfo, String cityAddress, String cords, String stuffstuff*/) {
+    public void onSelectionChanged(int pos, String item) {
         if (showRight) rightFragment.show(item);
         else callRightActivity(item);
     }
 
-    public void callRightActivity(String item /*String cityInfo, String cityAddress, String cords, String stuffstuff*/) {
-        Log.d(TAG, "callRightActivity: entered");
+    public void callRightActivity(String item) {
         Intent intent = new Intent(this, RightActivity.class);
         intent.putExtra("item", item);
         startActivity(intent);
