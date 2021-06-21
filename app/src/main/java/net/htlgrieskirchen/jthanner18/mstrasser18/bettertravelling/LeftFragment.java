@@ -185,7 +185,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener {
                     }
                 });
 
-        alertDialog.setNegativeButton("CANCEL",
+        alertDialog.setNegativeButton("ABBRECHEN",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();

@@ -30,6 +30,5 @@
             android:name=".EventActivity"
             android:label="Events"/>
     </application>
-    <!--android:icon="@mipmap/ic_launcher"-->
 
 </manifest>

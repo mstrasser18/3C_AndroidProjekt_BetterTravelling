@@ -73,8 +73,8 @@ public class NotificationService extends IntentService {
 
         for(Sight s: e) {
             builder = new NotificationCompat.Builder(this, String.valueOf(MainActivity.CHANNEL_ID))
-                    .setSmallIcon(R.drawable.ic_launcher_background)
-                    .setLargeIcon(BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher))
+                    .setSmallIcon(android.R.drawable.ic_dialog_map)
+                    .setLargeIcon(BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher_foreground))
                     .setContentTitle("Nahe Sehenswürdigkeit")
                     .setContentText(s.toString())
                     .setWhen(System.currentTimeMillis())
