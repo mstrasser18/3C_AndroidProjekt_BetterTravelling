@@ -20,7 +20,7 @@ Es sind soweit keine Probleme aufgetreten.
 #### Wie liegt die Gruppe im Zeitplan?
 Die Fertigstellung der Einbindung der Placefinder-API verzögert sich
 #### Was wird nächste Woche umgesetzt?
-Google Maps Weiterleitung, Routenplaner, Hotelfinder-API, Hotelbildschirm
+Google Maps Weiterleitung, Routenplaner, Event-API, Eventbildschirm
 
 # Woche 09.06 - 16.06
 #### Was ist gut gelaufen?
@@ -32,4 +32,16 @@ Google Maps Weiterleitung machte Probleme wegen der Koordinaten-Übergabe
 #### Wie liegt die Gruppe im Zeitplan?
 Alle geplanten APs wurden erledigt - Zeitplan wird derzeit eingehalten
 #### Was wird nächste Woche umgesetzt?
-Hotelfinder-API einbauen, Hotelbildschirm designen
+Event-API einbauen, Eventbildschirm designen
+
+# Woche 16.06 - 23.06
+#### Was ist gut gelaufen?
+Designen des Event-Bildschirms
+#### Welche AP's wurden erledigt?
+Event-API, Event-Bildschirm
+#### Welche Probleme sind aufgetreten?
+Authentifizierung bei der Amadeus-API gestaltete sich als sehr kompliziert
+#### Wie liegt die Gruppe im Zeitplan?
+Das Projekt wurde pünktlich fertiggestellt (21.06)
+#### Was wird nächste Woche umgesetzt?
+-
