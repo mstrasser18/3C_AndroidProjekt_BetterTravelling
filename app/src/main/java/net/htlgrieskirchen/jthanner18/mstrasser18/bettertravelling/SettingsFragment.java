@@ -41,6 +41,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         LeftFragment.spinnerAdapter.notifyDataSetChanged();
         LeftFragment.items.clear();
         LeftFragment.adapter.notifyDataSetChanged();
+        RightFragment.dontShow();
         NotificationService.setData(new HashMap<String, ArrayList<Sight>>());
     }
 }

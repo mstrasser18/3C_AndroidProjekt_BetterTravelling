@@ -67,6 +67,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 current_city = spinnerItems.get(position);
+                RightFragment.dontShow();
                 refreshAdapter(sights);
             }
 
@@ -138,6 +139,20 @@ public class LeftFragment extends Fragment implements View.OnClickListener {
                             int width = jo.getJSONArray("photos").getJSONObject(0).getInt("width");
                             String reference = jo.getJSONArray("photos").getJSONObject(0).getString("photo_reference");
                             sight.add(new Sight(name, address, lat, lon, rating, ("https://maps.googleapis.com/maps/api/place/photo?photoreference=" + reference + "&sensor=false&maxheight=" + height + "&maxwidth=" + width + "&key=" + KEY)));
+                            sights.put(current_city, sight);
+                            boolean exists = false;
+                            for (int j = 0; j < spinnerItems.size(); j++) {
+                                if (spinnerItems.get(j).equals(current_city)) {
+                                    exists = true;
+                                }
+                            }
+                            if (!exists) {
+                                spinnerItems.add(current_city);
+                                spinnerAdapter.notifyDataSetChanged();
+                            }
+                            dropdown.setSelection(spinnerItems.indexOf(current_city));
+                            RightFragment.dontShow();
+                            refreshAdapter(sights);
                         }
                     }
                 } catch (ExecutionException e) {
@@ -147,19 +162,6 @@ public class LeftFragment extends Fragment implements View.OnClickListener {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                sights.put(current_city, sight);
-                boolean exists = false;
-                for (int i = 0; i < spinnerItems.size(); i++) {
-                    if (spinnerItems.get(i).equals(current_city)) {
-                        exists = true;
-                    }
-                }
-                if (!exists) {
-                    spinnerItems.add(current_city);
-                    spinnerAdapter.notifyDataSetChanged();
-                }
-                dropdown.setSelection(spinnerItems.indexOf(current_city));
-                refreshAdapter(sights);
             }
         };
         userInput(runnable, v);

@@ -16,13 +16,13 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 public class RightFragment extends Fragment implements View.OnClickListener {
-    private TextView info;
-    private TextView address;
-    private TextView coord;
-    private TextView rating;
-    private Button showOnMap;
-    private Button showEvents;
-    private ImageView imageView;
+    static TextView info;
+    static TextView address;
+    static TextView coord;
+    static TextView rating;
+    static Button showOnMap;
+    static Button showEvents;
+    static ImageView imageView;
     private static RightFragment instance;
     private static final int RQ_PREFERENCES = 1;
 
@@ -67,6 +67,18 @@ public class RightFragment extends Fragment implements View.OnClickListener {
                 });
             }
         }).start();
+    }
+
+    public static void dontShow() {
+        if (info != null && address != null && coord != null && rating != null && imageView != null && showOnMap != null && showEvents != null) {
+            info.setText("");
+            address.setText("");
+            coord.setText("");
+            rating.setText("");
+            imageView.setImageResource(android.R.color.transparent);
+            showOnMap.setVisibility(View.INVISIBLE);
+            showEvents.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
